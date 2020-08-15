@@ -3,8 +3,8 @@ class SavingsAccount:
     r = 0.04
 
     def increment(self, monthly_savings: float):
-        self.balance += monthly_savings / 12
         self.balance += self.balance * (self.r / 12)
+        self.balance += monthly_savings
 
 
 def calculate_down_payment(home_cost: float) -> float:
@@ -13,14 +13,14 @@ def calculate_down_payment(home_cost: float) -> float:
 
 
 def calc_monthly(annual_salary: float, portion_saved: float) -> float:
-    monthly_savings = annual_salary / 12
-    return monthly_savings
+    monthly_salary = annual_salary / 12
+    return monthly_salary * portion_saved
 
 
 def months_to_down_payment(amount_needed: float, annual_salary: float, portion_saved: float) -> int:
+    monthly_savings = calc_monthly(annual_salary, portion_saved)
     savings_account = SavingsAccount()
     month = 0
-    monthly_savings = calc_monthly(annual_salary, portion_saved)
     while savings_account.balance < amount_needed:
         savings_account.increment(monthly_savings)
         month += 1
